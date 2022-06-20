@@ -28,8 +28,18 @@ public class IndexController {
         return "index";
     }
 
+
+    /*
     @GetMapping("/posts/save")
     private String postsSave(){
+        return "posts-save";
+    }
+     */
+    @GetMapping("/posts/save")
+    private String postsSave(Model model,@LoginUser SessionUser user){
+        if (user != null){
+            model.addAttribute("userName", user.getName());
+        }
         return "posts-save";
     }
 
