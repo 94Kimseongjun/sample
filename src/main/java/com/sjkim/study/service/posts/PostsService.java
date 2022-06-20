@@ -1,7 +1,10 @@
 package com.sjkim.study.service.posts;
 
+import com.sjkim.study.config.auth.LoginUser;
+import com.sjkim.study.config.auth.dto.SessionUser;
 import com.sjkim.study.domain.posts.Posts;
 import com.sjkim.study.domain.posts.PostsRepository;
+import com.sjkim.study.domain.user.UserRepository;
 import com.sjkim.study.web.dto.PostsListResponseDto;
 import com.sjkim.study.web.dto.PostsResponseDto;
 import com.sjkim.study.web.dto.PostsSaveRequestDto;
@@ -25,12 +28,14 @@ public class PostsService {
 
 
     @Transactional
-    public Long update(Long id, PostsUpdateRequestDto requestDto){
+
+    public Long update(Long id, PostsUpdateRequestDto requestDto, SessionUser user){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
 
-        posts.update(requestDto.getTitle(), requestDto.getContent());
-
+        if (user.getName().equals(requestDto.getAuthor())){
+            posts.update(requestDto.getTitle(), requestDto.getContent());
+        }
         return id;
     }
 
