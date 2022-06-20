@@ -43,6 +43,7 @@ public class IndexController {
         return "posts-save";
     }
 
+    /*
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable Long id, Model model) {
         PostsResponseDto dto = postsService.findById(id);
@@ -50,6 +51,18 @@ public class IndexController {
 
         return "posts-update";
     }
+    */
 
+    @GetMapping("/posts/update/{id}")
+    public String postsUpdate(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
+
+        PostsResponseDto dto = postsService.findById(id);
+        if (!dto.getAuthor().equals(user.getName())){
+            return "권한없음";
+        }
+        model.addAttribute("posts", dto);
+
+        return "posts-update";
+    }
 
 }
