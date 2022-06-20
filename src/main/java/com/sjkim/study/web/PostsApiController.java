@@ -1,5 +1,7 @@
 package com.sjkim.study.web;
 
+import com.sjkim.study.config.auth.LoginUser;
+import com.sjkim.study.config.auth.dto.SessionUser;
 import com.sjkim.study.service.posts.PostsService;
 import com.sjkim.study.web.dto.PostsResponseDto;
 import com.sjkim.study.web.dto.PostsSaveRequestDto;
@@ -19,8 +21,8 @@ public class PostsApiController {
     }
 
     @PutMapping("/api/v1/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto){
-        return postsService.update(id, requestDto);
+    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto, @LoginUser SessionUser user){
+        return postsService.update(id, requestDto, user);
     }
 
     @GetMapping("/api/v1/posts/{id}")
