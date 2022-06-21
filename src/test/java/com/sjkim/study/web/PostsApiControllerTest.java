@@ -1,6 +1,8 @@
 package com.sjkim.study.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sjkim.study.config.auth.LoginUser;
+import com.sjkim.study.config.auth.dto.SessionUser;
 import com.sjkim.study.domain.posts.Posts;
 import com.sjkim.study.domain.posts.PostsRepository;
 import com.sjkim.study.web.dto.PostsSaveRequestDto;
@@ -101,7 +103,7 @@ public class PostsApiControllerTest {
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
-                .author("author")
+                .author("user")
                 .build());
 
         Long updateId = savedPosts.getId();
@@ -111,7 +113,7 @@ public class PostsApiControllerTest {
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
                 .title(expectedTitle)
                 .content(expectedContent)
-                .author("author")
+                .author("user")
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
