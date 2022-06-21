@@ -50,10 +50,11 @@ public class IndexController {
         if (user == null || !user.getName().equals(dto.getAuthor())){
             model.addAttribute("authority", "authority");
             return "index";
-        }
-        model.addAttribute("posts", dto);
+        } else {
+            model.addAttribute("posts", dto);
 
-        return "posts-update";
+            return "posts-update";
+        }
     }
 
 
