@@ -49,14 +49,10 @@ public class IndexController {
         PostsResponseDto dto = postsService.findById(id);
         if (user == null || !user.getName().equals(dto.getAuthor())){
             model.addAttribute("authority", "authority");
-            model.addAttribute("posts", postsService.findAllDesc());
-            model.addAttribute("userName", user.getName());
-            return "index";
-        } else {
-            model.addAttribute("posts", dto);
-
-            return "posts-update";
         }
+        model.addAttribute("posts", dto);
+        return "posts-update";
+
     }
 
 
