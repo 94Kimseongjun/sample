@@ -29,13 +29,10 @@ public class PostsService {
 
     @Transactional
 
-    public Long update(Long id, PostsUpdateRequestDto requestDto, SessionUser user){
+    public Long update(Long id, PostsUpdateRequestDto requestDto){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
 
-        if (!user.getName().equals(requestDto.getAuthor())){
-            throw new IllegalArgumentException("권한이 업습니다.");
-        }
         posts.update(requestDto.getTitle(), requestDto.getContent());
 
         return id;
